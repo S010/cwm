@@ -44,8 +44,8 @@ clean:
 install:
 	mkdir -p $(BASE)/bin $(BASE)/share/man/man{1,5}
 	install $(PROG) $(BASE)/bin
-	install cwm.1 $(BASE)/share/man/man1/cwm.1.gz
-	install cwmrc.5 $(BASE)/share/man/man5/cwmrc.5.gz
+	install cwm.1.gz $(BASE)/share/man/man1/cwm.1.gz
+	install cwmrc.5.gz $(BASE)/share/man/man5/cwmrc.5.gz
 
 uninstall:
 	rm -f $(BASE)/bin/$(PROG)
