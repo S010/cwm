@@ -6,16 +6,16 @@
 /screen.c/1.28/Tue Jun 28 18:46:04 2011//
 /xevents.c/1.54/Tue Jun 28 18:46:04 2011//
 /xmalloc.c/1.7/Tue Jun 28 18:46:04 2011//
-/calmwm.c/1.58/Sun Aug 14 19:32:16 2011//
 /calmwm.h/1.135/Result of merge//
 /client.c/1.86/Result of merge//
-/conf.c/1.89/Sun Aug 14 19:32:16 2011//
-/group.c/1.51/Sun Aug 14 19:32:16 2011//
 /kbfunc.c/1.57/Result of merge+Sun Aug 14 19:32:16 2011//
-/menu.c/1.32/Sun Aug 14 19:32:16 2011//
-/mousefunc.c/1.32/Sun Aug 14 19:32:16 2011//
-/parse.y/1.29/Sun Aug 14 19:32:16 2011//
-/search.c/1.24/Sun Aug 14 19:32:16 2011//
-/util.c/1.15/Sun Aug 14 19:32:16 2011//
-/xutil.c/1.37/Sun Aug 14 19:32:16 2011//
+/calmwm.c/1.58/Sun Aug 14 20:19:24 2011//
+/conf.c/1.89/Sun Aug 14 20:19:24 2011//
+/group.c/1.51/Sun Aug 14 20:19:24 2011//
+/menu.c/1.32/Sun Aug 14 20:19:24 2011//
+/mousefunc.c/1.32/Sun Aug 14 20:19:24 2011//
+/parse.y/1.29/Sun Aug 14 20:19:24 2011//
+/search.c/1.24/Sun Aug 14 20:19:24 2011//
+/util.c/1.15/Sun Aug 14 20:19:24 2011//
+/xutil.c/1.37/Sun Aug 14 20:19:24 2011//
 D

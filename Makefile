@@ -6,11 +6,11 @@ PROG=		cwm
 
 SRCS=		calmwm.c screen.c xmalloc.c client.c menu.c \
 		search.c util.c xutil.c conf.c xevents.c group.c \
-		kbfunc.c mousefunc.c font.c parse.y log.c
+		kbfunc.c mousefunc.c font.c parse.y
 
 CPPFLAGS+=	-I${X11BASE}/include -I${X11BASE}/include/freetype2 -I${.CURDIR}
 
-CFLAGS+=	-Wall -g
+CFLAGS+=	-Wall
 
 LDADD+=		-L${X11BASE}/lib -lXft -lXrender -lX11 -lxcb -lXau -lXdmcp \
 		-lfontconfig -lexpat -lfreetype -lz -lXinerama -lXrandr -lXext
