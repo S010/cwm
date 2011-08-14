@@ -1,0 +1,229 @@
+CWMRC(5)                  OpenBSD Programmer's Manual                 CWMRC(5)
+
+NNAAMMEE
+     ccwwmmrrcc - calm window manager configuration file
+
+DDEESSCCRRIIPPTTIIOONN
+     This manual page describes the cwm(1) configuration file.
+
+     The current line can be extended over multiple lines using a backslash
+     (`\').  Comments can be put anywhere in the file using a hash mark (`#'),
+     and extend to the end of the current line.  Care should be taken when
+     commenting out multi-line text: the comment is effective until the end of
+     the entire block.
+
+     Arguments containing whitespace should be surrounded by double quotes
+     (").
+
+     The following options are accepted:
+
+     aauuttooggrroouupp _g_r_o_u_p _w_i_n_d_o_w_n_a_m_e
+     aauuttooggrroouupp _g_r_o_u_p _w_i_n_d_o_w_n_a_m_e_,_w_i_n_d_o_w_c_l_a_s_s
+             Control automatic window grouping, based on the name and/or class
+             properties, where _g_r_o_u_p is a number between 0 and 9.  If the
+             group number is 0, then the window will not be grouped; this to
+             allow for ``sticky'' windows in sticky group mode.
+
+             The name and class of a window may be obtained using xprop(1).
+
+     bbiinndd _k_e_y_s _c_o_m_m_a_n_d
+             Cause the creation of a keybinding, or replacement of a default
+             keybinding.  The modifier keys come first, followed by a `-'.
+
+             The following modifiers are recognised:
+
+                   C       The Control key.
+                   M       The Meta key.
+                   S       The Shift key.
+                   4       The Mod4 key (normally the windows key).
+
+             The `-' should be followed by either a keysym name, taken from
+             _/_u_s_r_/_X_1_1_R_6_/_i_n_c_l_u_d_e_/_X_1_1_/_k_e_y_s_y_m_d_e_f_._h, or a numerical keycode value
+             enclosed in ``[]''.  The _c_o_m_m_a_n_d may either be one from the _B_I_N_D
+             _C_O_M_M_A_N_D _L_I_S_T (see below) or the command line that is to be
+             executed.
+
+             A special _c_o_m_m_a_n_d keyword ``unmap'' can be used to remove the
+             named keybinding.  This can be used to remove a binding which
+             conflicts with an application.
+
+     bboorrddeerrwwiiddtthh _p_i_x_e_l_s
+             Set the window border width to _p_i_x_e_l_s.
+
+     ccoolloorr aaccttiivveebboorrddeerr _c_o_l_o_r
+             Set the color of the active border.
+
+     ccoolloorr ggrroouuppbboorrddeerr _c_o_l_o_r
+             Set the color of the border while grouping a window.
+
+     ccoolloorr iinnaaccttiivveebboorrddeerr _c_o_l_o_r
+             Set the color of the inactive border.
+
+     ccoolloorr uunnggrroouuppbboorrddeerr _c_o_l_o_r
+             Set the color of the border while ungrouping a window.
+
+     ccoommmmaanndd _n_a_m_e _p_a_t_h
+             Every _n_a_m_e entry is shown in the application menu.  When
+             selected, the defined _p_a_t_h is executed with execve(2).
+
+             The _n_a_m_e entries tteerrmm and lloocckk have a special meaning.  They
+             point to the terminal and screen locking programs specified by
+             keybindings.  The defaults are xterm(1) and xlock(1),
+             respectively.
+
+     ffoonnttnnaammee _f_o_n_t
+             Change the default _f_o_n_t for Xft(3).
+
+     ggaapp _t_o_p _b_o_t_t_o_m _l_e_f_t _r_i_g_h_t
+             Define a ``gap'' in pixels at the edge of the screen, so that
+             when a window is maximized it will not overlap this area.  This
+             ``gap'' can be used for applications such as xclock(1), where the
+             user may wish to remain visible.
+
+     iiggnnoorree _w_i_n_d_o_w_n_a_m_e
+             Ignore, and do not warp to, windows with the name _w_i_n_d_o_w_n_a_m_e when
+             drawing borders and cycling through windows.
+
+     mmoouusseebbiinndd _b_u_t_t_o_n_s _c_o_m_m_a_n_d
+             Cause the creation of a mouse binding, or replacement of a
+             default mouse binding.  The modifier keys come first, followed by
+             a `-'.
+
+             The following modifiers are recognised:
+
+                   C       The Control key.
+                   M       The Meta key.
+                   S       The Shift key.
+                   4       The Mod4 key (normally the windows key).
+
+             The `-' should be followed by number:
+
+                   1       Left mouse button.
+                   2       Middle mouse button.
+                   3       Right mouse button.
+
+             The _c_o_m_m_a_n_d may be taken from the _M_O_U_S_E_B_I_N_D _C_O_M_M_A_N_D _L_I_S_T (see
+             below).
+
+     mmoovveeaammoouunntt _p_i_x_e_l_s
+             Set a default size for the keyboard movement bindings, in pixels.
+             The default is 1.
+
+     ssttiicckkyy yyeess|nnoo
+             Toggle sticky group mode.  The default behavior for new windows
+             is to not assign any group.  By enabling sticky group mode,
+             cwm(1) will assign new windows to the currently selected group.
+
+EEXXAAMMPPLLEE CCOONNFFIIGGUURRAATTIIOONN
+     # Set default Xft(3) font
+     fontname "sans-serif:pixelsize=14:bold"
+
+     # Turn on sticky-group mode
+     sticky yes
+
+     # Any entry here is shown in the application menu
+     command firefox         firefox
+     command xmms            xmms
+     command top             "xterm -e top"
+
+     # Autogroup definitions
+     autogroup 3 "aterm,XTerm"
+     autogroup 3 "xterm,XTerm"
+
+     # Ignore programs by that name by not drawing borders around them.
+     ignore XMMS
+     ignore xwi
+     ignore xapm
+     ignore xclock
+
+     # Keybindings
+     bind CM-r       label
+     bind CS-Return  "xterm -e top"
+     bind 4-o        unmap
+     bind M-1        grouponly1
+     bind M-2        grouponly2
+     bind M-3        grouponly3
+     bind MS-1       movetogroup1
+     bind MS-2       movetogroup2
+     bind MS-3       movetogroup3
+
+     # Mousebindings
+     mousebind M-2   window_lower
+     mousebind M-3   window_resize
+
+BBIINNDD CCOOMMMMAANNDD LLIISSTT
+     reload              Reload configuration.
+     quit                Quit cwm(1).
+     terminal            Spawn a new terminal.
+     lock                Lock the screen.
+     search              Launch window search menu.
+     menusearch          Launch application search menu.
+     exec                Launch ``exec program'' menu.
+     exec_wm             Launch ``exec WindowManager'' menu.
+     ssh                 Launch ``ssh'' menu.
+     group[n]            Select group n, where n is 1-9.
+     grouponly[n]        Like _g_r_o_u_p_[_n_] but also hides the other groups.
+     nogroup             Select all groups.
+     grouptoggle         Toggle group membership of current window.
+     movetogroup[n]      Hide current window from display and move to group n,
+                         where n is 1-9.
+     cyclegroup          Forward cycle through groups.
+     rcyclegroup         Reverse cycle through groups.
+     cycle               Forward cycle through windows.
+     rcycle              Reverse cycle through windows.
+     snapdist            Minimum distance to snap-to adjacent edge.
+     delete              Delete current window.
+     hide                Hide current window.
+     lower               Lower current window.
+     raise               Raise current window.
+     label               Label current window.
+     freeze              Freeze current window geometry.
+     maximize            Maximize current window full-screen.
+     vmaximize           Maximize current window vertically.
+     hmaximize           Maximize current window horizontally.
+     moveup              Move window _m_o_v_e_a_m_o_u_n_t pixels up.
+     movedown            Move window _m_o_v_e_a_m_o_u_n_t pixels down.
+     moveright           Move window _m_o_v_e_a_m_o_u_n_t pixels right.
+     moveleft            Move window _m_o_v_e_a_m_o_u_n_t pixels left.
+     bigmoveup           Move window 10 times _m_o_v_e_a_m_o_u_n_t pixels up.
+     bigmovedown         Move window 10 times _m_o_v_e_a_m_o_u_n_t pixels down.
+     bigmoveright        Move window 10 times _m_o_v_e_a_m_o_u_n_t pixels right.
+     bigmoveleft         Move window 10 times _m_o_v_e_a_m_o_u_n_t pixels left.
+     resizeup            Resize window _m_o_v_e_a_m_o_u_n_t pixels up.
+     resizedown          Resize window _m_o_v_e_a_m_o_u_n_t pixels down.
+     resizeright         Resize window _m_o_v_e_a_m_o_u_n_t pixels right.
+     resizeleft          Resize window _m_o_v_e_a_m_o_u_n_t pixels left.
+     bigresizeup         Resize window 10 times _m_o_v_e_a_m_o_u_n_t pixels up.
+     bigresizedown       Resize window 10 times _m_o_v_e_a_m_o_u_n_t pixels down.
+     bigresizeright      Resize window 10 times _m_o_v_e_a_m_o_u_n_t pixels right.
+     bigresizeleft       Resize window 10 times _m_o_v_e_a_m_o_u_n_t pixels left.
+     ptrmoveup           Move pointer _m_o_v_e_a_m_o_u_n_t pixels up.
+     ptrmovedown         Move pointer _m_o_v_e_a_m_o_u_n_t pixels down.
+     ptrmoveright        Move pointer _m_o_v_e_a_m_o_u_n_t pixels right.
+     ptrmoveleft         Move pointer _m_o_v_e_a_m_o_u_n_t pixels left.
+     bigptrmoveup        Move pointer 10 times _m_o_v_e_a_m_o_u_n_t pixels up.
+     bigptrmovedown      Move pointer 10 times _m_o_v_e_a_m_o_u_n_t pixels down.
+     bigptrmoveright     Move pointer 10 times _m_o_v_e_a_m_o_u_n_t pixels right.
+     bigptrmoveleft      Move pointer 10 times _m_o_v_e_a_m_o_u_n_t pixels left.
+
+MMOOUUSSEEBBIINNDD CCOOMMMMAANNDD LLIISSTT
+     window_move         Move current window.
+     window_resize       Resize current window.
+     window_lower        Lower current window.
+     window_raise        Raise current window.
+     window_hide         Hide current window.
+     window_grouptoggle  Toggle group membership of current window.
+     menu_group          Launch group list.
+     menu_unhide         Launch hidden window list.
+     menu_cmd            Launch command list.
+
+FFIILLEESS
+     _~_/_._c_w_m_r_c     default cwm(1) configuration file
+
+SSEEEE AALLSSOO
+     cwm(1)
+
+HHIISSTTOORRYY
+     The ccwwmmrrcc file format first appeared in OpenBSD 4.4.
+
+OpenBSD 4.9                      June 25, 2011                     OpenBSD 4.9

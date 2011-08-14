@@ -1,4 +1,4 @@
-/*	$OpenBSD: parse.y,v 1.27 2011/06/24 06:06:24 okan Exp $ */
+/*	$OpenBSD: parse.y,v 1.29 2011/07/25 15:10:24 okan Exp $ */
 
 /*
  * Copyright (c) 2002, 2003, 2004 Henning Brauer <henning@openbsd.org>
@@ -142,7 +142,7 @@ main		: FONTNAME STRING		{
 			struct winmatch	*wm;
 
 			wm = xcalloc(1, sizeof(*wm));
-			strlcpy(wm->title, $2, sizeof(wm->title));
+			(void)strlcpy(wm->title, $2, sizeof(wm->title));
 			TAILQ_INSERT_TAIL(&conf->ignoreq, wm, entry);
 
 			free($2);
@@ -169,8 +169,8 @@ color		: COLOR colors
 		;
 
 colors		: ACTIVEBORDER STRING {
-			free(conf->color[CWM_COLOR_BORDOR_ACTIVE].name);
-			conf->color[CWM_COLOR_BORDOR_ACTIVE].name = $2;
+			free(conf->color[CWM_COLOR_BORDER_ACTIVE].name);
+			conf->color[CWM_COLOR_BORDER_ACTIVE].name = $2;
 		}
 		| INACTIVEBORDER STRING {
 			free(conf->color[CWM_COLOR_BORDER_INACTIVE].name);
@@ -502,7 +502,7 @@ parse_config(const char *filename, struct conf *xconf)
 		return (-1);
 	}
 
-	strlcpy(conf->conf_path, filename, sizeof(conf->conf_path));
+	(void)strlcpy(conf->conf_path, filename, sizeof(conf->conf_path));
 
 	conf_init(conf);
 
@@ -555,9 +555,9 @@ parse_config(const char *filename, struct conf *xconf)
 			TAILQ_INSERT_TAIL(&xconf->mousebindingq, mb, entry);
 		}
 
-		strlcpy(xconf->termpath, conf->termpath,
+		(void)strlcpy(xconf->termpath, conf->termpath,
 		    sizeof(xconf->termpath));
-		strlcpy(xconf->lockpath, conf->lockpath,
+		(void)strlcpy(xconf->lockpath, conf->lockpath,
 		    sizeof(xconf->lockpath));
 
 		for (i = 0; i < CWM_COLOR_MAX; i++)

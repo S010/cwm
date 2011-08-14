@@ -1,99 +1,21 @@
-
-/* A Bison parser, made by GNU Bison 2.4.1.  */
-
-/* Skeleton interface for Bison's Yacc-like parsers in C
-   
-      Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006
-   Free Software Foundation, Inc.
-   
-   This program is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-   
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-   
-   You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
-
-/* As a special exception, you may create a larger work that contains
-   part or all of the Bison parser skeleton and distribute that work
-   under terms of your choice, so long as that work isn't itself a
-   parser generator using the skeleton or a modified version thereof
-   as a parser skeleton.  Alternatively, if you modify or redistribute
-   the parser skeleton itself, you may (at your option) remove this
-   special exception, which will cause the skeleton and the resulting
-   Bison output files to be licensed under the GNU General Public
-   License without this special exception.
-   
-   This special exception was added by the Free Software Foundation in
-   version 2.2 of Bison.  */
-
-
-/* Tokens.  */
-#ifndef YYTOKENTYPE
-# define YYTOKENTYPE
-   /* Put the tokens into the symbol table, so that GDB and other debuggers
-      know about them.  */
-   enum yytokentype {
-     FONTNAME = 258,
-     STICKY = 259,
-     GAP = 260,
-     MOUSEBIND = 261,
-     AUTOGROUP = 262,
-     BIND = 263,
-     COMMAND = 264,
-     IGNORE = 265,
-     YES = 266,
-     NO = 267,
-     BORDERWIDTH = 268,
-     MOVEAMOUNT = 269,
-     COLOR = 270,
-     SNAPDIST = 271,
-     ACTIVEBORDER = 272,
-     INACTIVEBORDER = 273,
-     GROUPBORDER = 274,
-     UNGROUPBORDER = 275,
-     ERROR = 276,
-     STRING = 277,
-     NUMBER = 278
-   };
-#endif
-/* Tokens.  */
-#define FONTNAME 258
-#define STICKY 259
-#define GAP 260
-#define MOUSEBIND 261
-#define AUTOGROUP 262
-#define BIND 263
-#define COMMAND 264
-#define IGNORE 265
-#define YES 266
-#define NO 267
-#define BORDERWIDTH 268
-#define MOVEAMOUNT 269
-#define COLOR 270
-#define SNAPDIST 271
-#define ACTIVEBORDER 272
-#define INACTIVEBORDER 273
-#define GROUPBORDER 274
-#define UNGROUPBORDER 275
-#define ERROR 276
-#define STRING 277
-#define NUMBER 278
-
-
-
-
-#if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-
-# define yystype YYSTYPE /* obsolescent; will be withdrawn */
-# define YYSTYPE_IS_DECLARED 1
-#endif
-
-extern YYSTYPE yylval;
-
-
+#define FONTNAME 257
+#define STICKY 258
+#define GAP 259
+#define MOUSEBIND 260
+#define AUTOGROUP 261
+#define BIND 262
+#define COMMAND 263
+#define IGNORE 264
+#define YES 265
+#define NO 266
+#define BORDERWIDTH 267
+#define MOVEAMOUNT 268
+#define COLOR 269
+#define SNAPDIST 270
+#define ACTIVEBORDER 271
+#define INACTIVEBORDER 272
+#define GROUPBORDER 273
+#define UNGROUPBORDER 274
+#define ERROR 275
+#define STRING 276
+#define NUMBER 277

@@ -1,0 +1,160 @@
+CWM(1)                     OpenBSD Reference Manual                     CWM(1)
+
+NNAAMMEE
+     ccwwmm - a lightweight and efficient window manager for X11
+
+SSYYNNOOPPSSIISS
+     ccwwmm [--cc _f_i_l_e] [--dd _d_i_s_p_l_a_y]
+
+DDEESSCCRRIIPPTTIIOONN
+     ccwwmm is a window manager for X11 which contains many features that
+     concentrate on the efficiency and transparency of window management.  ccwwmm
+     also aims to maintain the simplest and most pleasant aesthetic.
+
+     The following notation is used throughout this page:
+
+           CC       Control.
+           MM       Meta.
+           SS       Shift.
+           MM11      Left mouse button.
+           MM22      Middle mouse button.
+           MM33      Right mouse button.
+
+     ccwwmm is very simple in its use.  Most of the actions are initiated via key
+     bindings.  The current key bindings are described below; their
+     functionality is described in more detail later.
+
+           CCMM--RReettuurrnn       Spawn a new terminal.
+           CCMM--DDeelleettee       Lock the screen.
+           MM--RReettuurrnn        Hide current window.
+           MM--DDoowwnn          Lower current window.
+           MM--UUpp            Raise current window.
+           MM--//             Search for windows.
+           CC--//             Search for applications.
+           CCMM--nn            Label current window.
+           MM--TTaabb           Cycle through currently visible windows.
+           MMSS--TTaabb          Reverse cycle through currently visible windows.
+           CCMM--xx            Delete current window.
+           CCMM--[[nn]]          Select group n, where n is 1-9.
+           CCMM--00            Select all groups.
+           CCMM--gg            Toggle group membership of current window.
+           MM--RRiigghhtt         Cycle through active groups.
+           MM--LLeefftt          Reverse cycle through active groups.
+           CCMMSS--ff           Toggle freezing geometry of current window.
+           CCMM--ff            Toggle full-screen size of current window.
+           CCMM--==            Toggle vertical maximization of current window.
+           CCMMSS--==           Toggle horizontal maximization of current window.
+           MM--??             Spawn ``exec program'' dialog.
+           MM--..             Spawn ``ssh to'' dialog.  This parses
+                           _$_H_O_M_E_/_._s_s_h_/_k_n_o_w_n___h_o_s_t_s to provide host auto-
+                           completion.  ssh(1) will be executed via the
+                           configured terminal emulator.
+           CCMM--ww            Spawn ``exec WindowManager'' dialog; allows you to
+                           switch from ccwwmm to another window manager without
+                           restarting the X server.
+           CCMMSS--rr           Reload configuration.
+           CCMMSS--qq           Quit ccwwmm.
+
+     The mouse bindings are also important, they are:
+
+           MM--MM11    Move current window.
+           CCMM--MM11   Toggle group membership of current window.
+           MM--MM22    Resize current window
+           MM--MM33    Lower current window.
+           CCMMSS--MM33  Hide current window.
+
+     The options for ccwwmm are as follows:
+
+     --cc _f_i_l_e
+             Specify the config file to use.  Defaults to _~_/_._c_w_m_r_c.
+
+     --dd _d_i_s_p_l_a_y
+             Specify the display to use.
+
+PPOOIINNTTEERR MMOOVVEEMMEENNTT
+     The pointer can be moved with the use of the keyboard through bindings.
+     CC--[[UUpp||DDoowwnn||LLeefftt||RRiigghhtt]] moves the pointer a small amount, while
+     CCSS--[[UUpp||DDoowwnn||LLeefftt||RRiigghhtt]] moves the pointer a larger amount.  For example,
+     to move the pointer to the left by a small amount, press CC--LLeefftt.  To move
+     the pointer down by a larger amount, press CCSS--DDoowwnn.
+
+WWIINNDDOOWW MMOOVVEEMMEENNTT AANNDD RREESSIIZZIINNGG
+     ccwwmm windows can be moved with the use of the keyboard through vvii-like
+     bindings.  MM--[[hhjjkkll]] moves the current window a small amount, while
+     MMSS--[[hhjjkkll]] moves the current window a larger amount.  For example, to move
+     the current window to the left a small amount, press MM--hh.  To move the
+     current window down by a larger amount, press MMSS--jj.
+
+     Similarly, windows may be resized with the same key bindings with the
+     addition of the Control key.  CCMM--[[hhjjkkll]] resizes the window a small amount
+     and CCMMSS--[[hhjjkkll]] resizes by a larger increment.
+
+SSEEAARRCCHH
+     ccwwmm features the ability to search for windows by their current title,
+     old titles, and by their label.  The priority for the search results are:
+     label, current title, old titles in reverse order, and finally window
+     class name.  ccwwmm keeps a history of the 5 previous titles of a window.
+
+     When searching, the leftmost character of the result list may show a
+     flag:
+
+           !           The window is the currently focused window.
+           &           The window is hidden.
+
+     The following key bindings may be used to navigate the result list:
+
+           [[DDoowwnn]],, CC--ss or MM--jj    Select the next window in the list.
+           [[UUpp]],, CC--rr or MM--kk      Select the previous window in the list.
+           [[BBaacckkssppaaccee]] or CC--hh    Backspace.
+           CC--uu                   Clear the input.
+           [[RReettuurrnn]]              Focus the selected window.
+           [[EEsscc]]                 Cancel.
+           CC--aa                   Whenever there are no matching windows, list
+                                 every window.
+
+GGRROOUUPPSS
+     ccwwmm has the ability to group windows together, and use the groups to
+     perform operations on the entire group instead of just one window.
+     Currently, the only operation that is supported is to hide and unhide the
+     grouped windows.  Together with the _s_t_i_c_k_y option, this can be used to
+     emulate virtual desktops.
+
+     To edit groups, use the group selection commands to toggle membership of
+     a group.  A blue border will be shown briefly on windows added to the
+     current group, and a red border will be shown on those just removed.
+
+MMEENNUUSS
+     Menus are recalled by clicking the mouse on the root window:
+
+           MM11          Show list of currently hidden windows.  Clicking on an
+                       item will unhide that window.
+           MM22          Show list of currently defined groups.  Clicking on an
+                       item will hide/unhide that group.
+           MM33          Show list of applications as defined in _~_/_._c_w_m_r_c.
+                       Clicking on an item will spawn that application.
+
+EENNVVIIRROONNMMEENNTT
+     DISPLAY     ccwwmm starts on this display unless the --dd option is given.
+
+FFIILLEESS
+     _~_/_._c_w_m_r_c
+
+SSEEEE AALLSSOO
+     cwmrc(5)
+
+AAUUTTHHOORRSS
+
+     ccwwmm was developed by Marius Aamodt Eriksen <marius@monkey.org> with
+     contributions from Andy Adamson <dros@monkey.org>, Niels Provos
+     <provos@monkey.org>, and Antti Nykanen <aon@iki.fi>.  Ideas, discussion
+     with many others.
+
+HHIISSTTOORRYY
+     ccwwmm was originally inspired by evilwm, but was rewritten from scratch due
+     to limitations in the evilwm codebase.  The from-scratch rewrite borrowed
+     some code from 9wm, however that code has since been removed or
+     rewritten.
+
+     ccwwmm first appeared in OpenBSD 4.2.
+
+OpenBSD 4.9                       May 7, 2011                      OpenBSD 4.9

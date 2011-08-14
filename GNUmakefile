@@ -14,7 +14,7 @@ PROG=	cwm
 SRCS=	calmwm.c screen.c xmalloc.c client.c menu.c		\
 	search.c util.c xutil.c conf.c xevents.c group.c	\
 	kbfunc.c mousefunc.c font.c parse.c			\
-	strlcpy.c strlcat.c strtonum.c fgetln.c
+	strlcpy.c strlcat.c strtonum.c fgetln.c log.c
 OBJS = $(filter %.o, $(SRCS:.c=.o))
 MANPAGES=cwm.1.gz cwmrc.5.gz
 
