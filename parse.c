@@ -74,9 +74,12 @@ typedef struct {
 #define INACTIVEBORDER 272
 #define GROUPBORDER 273
 #define UNGROUPBORDER 274
-#define ERROR 275
-#define STRING 276
-#define NUMBER 277
+#define MENUBG 275
+#define MENUFG 276
+#define FONTCOLOR 277
+#define ERROR 278
+#define STRING 279
+#define NUMBER 280
 #define YYERRCODE 256
 #if defined(__cplusplus) || defined(__STDC__)
 const short yylhs[] =
@@ -86,7 +89,7 @@ short yylhs[] =
 	{                                        -1,
     0,    0,    0,    0,    0,    2,    2,    1,    1,    3,
     3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-    4,    5,    5,    5,    5,
+    4,    5,    5,    5,    5,    5,    5,    5,
 };
 #if defined(__cplusplus) || defined(__STDC__)
 const short yylen[] =
@@ -96,7 +99,7 @@ short yylen[] =
 	{                                         2,
     0,    2,    3,    3,    3,    2,    1,    1,    1,    2,
     2,    2,    2,    2,    3,    3,    2,    3,    5,    3,
-    2,    2,    2,    2,    2,
+    2,    2,    2,    2,    2,    2,    2,    2,
 };
 #if defined(__cplusplus) || defined(__STDC__)
 const short yydefred[] =
@@ -107,9 +110,9 @@ short yydefred[] =
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    2,    0,    0,    5,   10,    8,
     9,   11,    0,    0,    0,    0,    0,   17,   12,   13,
-    0,    0,    0,    0,   21,   14,    3,    4,    0,    7,
-    0,   16,    0,    0,   22,   23,   24,   25,    0,    6,
-   19,
+    0,    0,    0,    0,    0,    0,    0,   21,   14,    3,
+    4,    0,    7,    0,   16,    0,    0,   22,   23,   24,
+   25,   26,   27,   28,    0,    6,   19,
 };
 #if defined(__cplusplus) || defined(__STDC__)
 const short yydgoto[] =
@@ -117,7 +120,7 @@ const short yydgoto[] =
 short yydgoto[] =
 #endif
 	{                                       1,
-   22,   41,   16,   17,   35,
+   22,   44,   16,   17,   38,
 };
 #if defined(__cplusplus) || defined(__STDC__)
 const short yysindex[] =
@@ -125,12 +128,12 @@ const short yysindex[] =
 short yysindex[] =
 #endif
 	{                                      0,
-  -10,   -1, -266, -260, -265, -263, -262, -259, -258, -257,
- -261, -256, -270, -255,    0,    1,    4,    0,    0,    0,
-    0,    0, -254, -252, -251, -252, -252,    0,    0,    0,
- -250, -249, -248, -247,    0,    0,    0,    0, -246,    0,
- -244,    0, -244, -244,    0,    0,    0,    0, -243,    0,
-    0,};
+  -10,    2, -266, -257, -265, -263, -262, -260, -259, -258,
+ -256, -255, -270, -254,    0,    4,    7,    0,    0,    0,
+    0,    0, -253, -251, -250, -251, -251,    0,    0,    0,
+ -249, -248, -247, -246, -245, -244, -243,    0,    0,    0,
+    0, -242,    0, -240,    0, -240, -240,    0,    0,    0,
+    0,    0,    0,    0, -239,    0,    0,};
 #if defined(__cplusplus) || defined(__STDC__)
 const short yyrindex[] =
 #else
@@ -141,15 +144,15 @@ short yyrindex[] =
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-   10,    0,   -1,   20,    0,    0,    0,    0,    0,    0,
-    0,};
+    0,    0,    0,   12,    0,    2,   13,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,};
 #if defined(__cplusplus) || defined(__STDC__)
 const short yygindex[] =
 #else
 short yygindex[] =
 #endif
 	{                                      0,
-    0,  -19,    0,    0,    0,
+    0,  -16,    0,    0,    0,
 };
 #define YYTABLESIZE 260
 #if defined(__cplusplus) || defined(__STDC__)
@@ -158,11 +161,11 @@ const short yytable[] =
 short yytable[] =
 #endif
 	{                                      15,
-   31,   32,   33,   34,   20,   21,   43,   44,   18,   19,
-   37,   23,   24,   38,   25,   29,   26,   27,   28,   20,
-   30,   36,   39,   40,   42,   45,   46,   47,   48,   15,
-   49,   50,    0,   51,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+   31,   32,   33,   34,   35,   36,   37,   20,   21,   46,
+   47,   18,   19,   40,   23,   24,   41,   25,   26,   27,
+   28,   20,   15,   29,   30,   39,   42,   43,   45,   48,
+   49,   50,   51,   52,   53,   54,    0,   55,   56,    0,
+   57,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
@@ -191,11 +194,11 @@ const short yycheck[] =
 short yycheck[] =
 #endif
 	{                                      10,
-  271,  272,  273,  274,  265,  266,   26,   27,   10,  276,
-   10,  277,  276,   10,  277,  277,  276,  276,  276,   10,
-  277,  277,  277,  276,  276,  276,  276,  276,  276,   10,
-  277,  276,   -1,  277,   -1,   -1,   -1,   -1,   -1,   -1,
-   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+  271,  272,  273,  274,  275,  276,  277,  265,  266,   26,
+   27,   10,  279,   10,  280,  279,   10,  280,  279,  279,
+  279,   10,   10,  280,  280,  280,  280,  279,  279,  279,
+  279,  279,  279,  279,  279,  279,   -1,  280,  279,   -1,
+  280,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
@@ -222,7 +225,7 @@ short yycheck[] =
 #ifndef YYDEBUG
 #define YYDEBUG 0
 #endif
-#define YYMAXTOKEN 277
+#define YYMAXTOKEN 280
 #if YYDEBUG
 #if defined(__cplusplus) || defined(__STDC__)
 const char * const yyname[] =
@@ -239,7 +242,7 @@ char *yyname[] =
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"FONTNAME","STICKY","GAP",
 "MOUSEBIND","AUTOGROUP","BIND","COMMAND","IGNORE","YES","NO","BORDERWIDTH",
 "MOVEAMOUNT","COLOR","SNAPDIST","ACTIVEBORDER","INACTIVEBORDER","GROUPBORDER",
-"UNGROUPBORDER","ERROR","STRING","NUMBER",
+"UNGROUPBORDER","MENUBG","MENUFG","FONTCOLOR","ERROR","STRING","NUMBER",
 };
 #if defined(__cplusplus) || defined(__STDC__)
 const char * const yyrule[] =
@@ -272,6 +275,9 @@ char *yyrule[] =
 "colors : INACTIVEBORDER STRING",
 "colors : GROUPBORDER STRING",
 "colors : UNGROUPBORDER STRING",
+"colors : MENUBG STRING",
+"colors : MENUFG STRING",
+"colors : FONTCOLOR STRING",
 };
 #endif
 #ifdef YYSTACKSIZE
@@ -299,7 +305,7 @@ short *yyss;
 short *yysslim;
 YYSTYPE *yyvs;
 int yystacksize;
-#line 189 "parse.y"
+#line 202 "parse.y"
 
 struct keywords {
 	const char	*k_name;
@@ -337,11 +343,14 @@ lookup(char *s)
 		{ "borderwidth",	BORDERWIDTH},
 		{ "color",		COLOR},
 		{ "command",		COMMAND},
+		{ "font",		FONTCOLOR},
 		{ "fontname",		FONTNAME},
 		{ "gap",		GAP},
 		{ "groupborder",	GROUPBORDER},
 		{ "ignore",		IGNORE},
 		{ "inactiveborder",	INACTIVEBORDER},
+		{ "menubg",		MENUBG},
+		{ "menufg",		MENUFG},
 		{ "mousebind",		MOUSEBIND},
 		{ "moveamount",		MOVEAMOUNT},
 		{ "no",			NO},
@@ -576,8 +585,6 @@ pushfile(const char *name)
 	nfile->name = xstrdup(name);
 
 	if ((nfile->stream = fopen(nfile->name, "r")) == NULL) {
-		if (errno != ENOENT)
-			warn("%s", nfile->name);
 		free(nfile->name);
 		free(nfile);
 		return (NULL);
@@ -677,14 +684,14 @@ parse_config(const char *filename, struct conf *xconf)
 		for (i = 0; i < CWM_COLOR_MAX; i++)
 			xconf->color[i].name = conf->color[i].name;
 
-		xconf->DefaultFontName = conf->DefaultFontName;
+		xconf->font = conf->font;
 	}
 
 	free(conf);
 
 	return (errors ? -1 : 0);
 }
-#line 636 "y.tab.c"
+#line 643 "y.tab.c"
 /* allocate initial stack or double stack size, up to YYMAXDEPTH */
 #if defined(__cplusplus) || defined(__STDC__)
 static int yygrowstack(void)
@@ -890,11 +897,11 @@ yyreduce:
     switch (yyn)
     {
 case 5:
-#line 87 "parse.y"
+#line 88 "parse.y"
 { file->errors++; }
 break;
 case 6:
-#line 90 "parse.y"
+#line 91 "parse.y"
 {
 			if (asprintf(&yyval.v.string, "%s %s", yyvsp[-1].v.string, yyvsp[0].v.string) == -1) {
 				free(yyvsp[-1].v.string);
@@ -907,22 +914,22 @@ case 6:
 		}
 break;
 case 8:
-#line 103 "parse.y"
+#line 104 "parse.y"
 { yyval.v.number = 1; }
 break;
 case 9:
-#line 104 "parse.y"
+#line 105 "parse.y"
 { yyval.v.number = 0; }
 break;
 case 10:
-#line 107 "parse.y"
+#line 108 "parse.y"
 {
-			free(conf->DefaultFontName);
-			conf->DefaultFontName = yyvsp[0].v.string;
+			free(conf->font);
+			conf->font = yyvsp[0].v.string;
 		}
 break;
 case 11:
-#line 111 "parse.y"
+#line 112 "parse.y"
 {
 			if (yyvsp[0].v.number == 0)
 				conf->flags &= ~CONF_STICKY_GROUPS;
@@ -931,25 +938,25 @@ case 11:
 		}
 break;
 case 12:
-#line 117 "parse.y"
+#line 118 "parse.y"
 {
 			conf->bwidth = yyvsp[0].v.number;
 		}
 break;
 case 13:
-#line 120 "parse.y"
+#line 121 "parse.y"
 {
 			conf->mamount = yyvsp[0].v.number;
 		}
 break;
 case 14:
-#line 123 "parse.y"
+#line 124 "parse.y"
 {
 			conf->snapdist = yyvsp[0].v.number;
 		}
 break;
 case 15:
-#line 126 "parse.y"
+#line 127 "parse.y"
 {
 			conf_cmd_add(conf, yyvsp[0].v.string, yyvsp[-1].v.string, 0);
 			free(yyvsp[-1].v.string);
@@ -957,7 +964,7 @@ case 15:
 		}
 break;
 case 16:
-#line 131 "parse.y"
+#line 132 "parse.y"
 {
 			if (yyvsp[-1].v.number < 0 || yyvsp[-1].v.number > 9) {
 				free(yyvsp[0].v.string);
@@ -970,7 +977,7 @@ case 16:
 		}
 break;
 case 17:
-#line 141 "parse.y"
+#line 142 "parse.y"
 {
 			struct winmatch	*wm;
 
@@ -982,7 +989,7 @@ case 17:
 		}
 break;
 case 18:
-#line 150 "parse.y"
+#line 151 "parse.y"
 {
 			conf_bindname(conf, yyvsp[-1].v.string, yyvsp[0].v.string);
 			free(yyvsp[-1].v.string);
@@ -990,7 +997,7 @@ case 18:
 		}
 break;
 case 19:
-#line 155 "parse.y"
+#line 156 "parse.y"
 {
 			conf->gap.top = yyvsp[-3].v.number;
 			conf->gap.bottom = yyvsp[-2].v.number;
@@ -999,7 +1006,7 @@ case 19:
 		}
 break;
 case 20:
-#line 161 "parse.y"
+#line 162 "parse.y"
 {
 			conf_mousebind(conf, yyvsp[-1].v.string, yyvsp[0].v.string);
 			free(yyvsp[-1].v.string);
@@ -1007,34 +1014,55 @@ case 20:
 		}
 break;
 case 22:
-#line 171 "parse.y"
+#line 172 "parse.y"
 {
 			free(conf->color[CWM_COLOR_BORDER_ACTIVE].name);
 			conf->color[CWM_COLOR_BORDER_ACTIVE].name = yyvsp[0].v.string;
 		}
 break;
 case 23:
-#line 175 "parse.y"
+#line 176 "parse.y"
 {
 			free(conf->color[CWM_COLOR_BORDER_INACTIVE].name);
 			conf->color[CWM_COLOR_BORDER_INACTIVE].name = yyvsp[0].v.string;
 		}
 break;
 case 24:
-#line 179 "parse.y"
+#line 180 "parse.y"
 {
 			free(conf->color[CWM_COLOR_BORDER_GROUP].name);
 			conf->color[CWM_COLOR_BORDER_GROUP].name = yyvsp[0].v.string;
 		}
 break;
 case 25:
-#line 183 "parse.y"
+#line 184 "parse.y"
 {
 			free(conf->color[CWM_COLOR_BORDER_UNGROUP].name);
 			conf->color[CWM_COLOR_BORDER_UNGROUP].name = yyvsp[0].v.string;
 		}
 break;
-#line 986 "y.tab.c"
+case 26:
+#line 188 "parse.y"
+{
+			free(conf->color[CWM_COLOR_BG_MENU].name);
+			conf->color[CWM_COLOR_BG_MENU].name = yyvsp[0].v.string;
+		}
+break;
+case 27:
+#line 192 "parse.y"
+{
+			free(conf->color[CWM_COLOR_FG_MENU].name);
+			conf->color[CWM_COLOR_FG_MENU].name = yyvsp[0].v.string;
+		}
+break;
+case 28:
+#line 196 "parse.y"
+{
+			free(conf->color[CWM_COLOR_FONT].name);
+			conf->color[CWM_COLOR_FONT].name = yyvsp[0].v.string;
+		}
+break;
+#line 1014 "y.tab.c"
     }
     yyssp -= yym;
     yystate = *yyssp;

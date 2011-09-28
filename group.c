@@ -16,7 +16,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * $OpenBSD: group.c,v 1.51 2011/07/25 15:10:24 okan Exp $
+ * $OpenBSD: group.c,v 1.53 2011/09/19 07:23:03 okan Exp $
  */
 
 #include <sys/param.h>
@@ -216,12 +216,16 @@ void
 group_movetogroup(struct client_ctx *cc, int idx)
 {
 	struct screen_ctx	*sc = cc->sc;
+	struct group_ctx	*gc;
 
 	if (idx < 0 || idx >= CALMWM_NGROUPS)
 		err(1, "group_movetogroup: index out of range (%d)", idx);
 
-	if(sc->group_active != &sc->groups[idx])
+	gc = &sc->groups[idx];
+	if (gc->hidden) {
 		client_hide(cc);
+		gc->nhidden++;
+	}
 	group_add(&sc->groups[idx], cc);
 }
 
@@ -313,7 +317,7 @@ group_only(struct screen_ctx *sc, int idx)
  * Cycle through active groups.  If none exist, then just stay put.
  */
 void
-group_cycle(struct screen_ctx *sc, int reverse)
+group_cycle(struct screen_ctx *sc, int flags)
 {
 	struct group_ctx	*gc, *showgroup = NULL;
 
@@ -321,11 +325,11 @@ group_cycle(struct screen_ctx *sc, int reverse)
 
 	gc = sc->group_active;
 	for (;;) {
-		gc = reverse ? TAILQ_PREV(gc, group_ctx_q, entry) :
-		    TAILQ_NEXT(gc, entry);
+		gc = (flags & CWM_RCYCLE) ? TAILQ_PREV(gc, group_ctx_q,
+		    entry) : TAILQ_NEXT(gc, entry);
 		if (gc == NULL)
-			gc = reverse ? TAILQ_LAST(&sc->groupq, group_ctx_q) :
-			    TAILQ_FIRST(&sc->groupq);
+			gc = (flags & CWM_RCYCLE) ? TAILQ_LAST(&sc->groupq,
+			    group_ctx_q) : TAILQ_FIRST(&sc->groupq);
 		if (gc == sc->group_active)
 			break;
 

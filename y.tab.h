@@ -16,6 +16,9 @@
 #define INACTIVEBORDER 272
 #define GROUPBORDER 273
 #define UNGROUPBORDER 274
-#define ERROR 275
-#define STRING 276
-#define NUMBER 277
+#define MENUBG 275
+#define MENUFG 276
+#define FONTCOLOR 277
+#define ERROR 278
+#define STRING 279
+#define NUMBER 280
