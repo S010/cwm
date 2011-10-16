@@ -62,7 +62,8 @@ conf_gap(struct conf *c, struct screen_ctx *sc)
 void
 conf_font(struct conf *c, struct screen_ctx *sc)
 {
-	font_init(sc, c->color[CWM_COLOR_FONT].name);
+	font_init(sc, c->color[CWM_COLOR_FONT].name, &sc->xftcolor);
+	font_init(sc, c->color[CWM_COLOR_BG_MENU].name, &sc->xftmenubgcolor);
 	sc->font = font_make(sc, c->font);
 }
 

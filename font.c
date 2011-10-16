@@ -28,6 +28,8 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#include <X11/Xft/Xft.h>
+
 #include "calmwm.h"
 
 int
@@ -49,7 +51,7 @@ font_height(struct screen_ctx *sc)
 }
 
 void
-font_init(struct screen_ctx *sc, const char *color)
+font_init(struct screen_ctx *sc, const char *color, XftColor *xftcolorp)
 {
 	if (sc->xftdraw)
 		XftDrawDestroy(sc->xftdraw);
@@ -58,11 +60,11 @@ font_init(struct screen_ctx *sc, const char *color)
 	if (sc->xftdraw == NULL)
 		errx(1, "XftDrawCreate");
 
-	if (sc->xftcolor.pixel)
+	if (xftcolorp->pixel)
 		XftColorFree(X_Dpy, DefaultVisual(X_Dpy, sc->which),
-		    DefaultColormap(X_Dpy, sc->which), &sc->xftcolor);
+		    DefaultColormap(X_Dpy, sc->which), xftcolorp);
 	if (!XftColorAllocName(X_Dpy, DefaultVisual(X_Dpy, sc->which),
-	    DefaultColormap(X_Dpy, sc->which), color, &sc->xftcolor))
+	    DefaultColormap(X_Dpy, sc->which), color, xftcolorp))
 		errx(1, "XftColorAllocName");
 }
 
@@ -79,10 +81,10 @@ font_width(struct screen_ctx *sc, const char *text, int len)
 
 void
 font_draw(struct screen_ctx *sc, const char *text, int len,
-    Drawable d, int x, int y)
+    Drawable d, int x, int y, XftColor *color)
 {
 	XftDrawChange(sc->xftdraw, d);
-	XftDrawStringUtf8(sc->xftdraw, &sc->xftcolor, sc->font, x, y,
+	XftDrawStringUtf8(sc->xftdraw, color, sc->font, x, y,
 	    (const FcChar8*)text, len);
 }
 

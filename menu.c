@@ -61,7 +61,7 @@ struct menu_ctx {
 static struct menu	*menu_handle_key(XEvent *, struct menu_ctx *,
 			     struct menu_q *, struct menu_q *);
 static void		 menu_handle_move(XEvent *, struct menu_ctx *,
-			     struct screen_ctx *);
+			     struct menu_q *, struct screen_ctx *);
 static struct menu	*menu_handle_release(XEvent *, struct menu_ctx *,
 			     struct screen_ctx *, struct menu_q *);
 static void		 menu_draw(struct screen_ctx *, struct menu_ctx *,
@@ -83,10 +83,15 @@ menu_init(struct screen_ctx *sc)
 	    sc->color[CWM_COLOR_FG_MENU].pixel,
 	    sc->color[CWM_COLOR_BG_MENU].pixel);
 
+	/*
 	gv.foreground =
 	    sc->color[CWM_COLOR_FG_MENU].pixel^sc->color[CWM_COLOR_BG_MENU].pixel;
 	gv.background = sc->color[CWM_COLOR_BG_MENU].pixel;
 	gv.function = GXxor;
+	*/
+	gv.foreground = sc->color[CWM_COLOR_FG_MENU].pixel;
+	gv.background = sc->color[CWM_COLOR_BG_MENU].pixel;
+	gv.function = GXcopy;
 
 	if (sc->gc)
 		XFreeGC(X_Dpy, sc->gc);
@@ -172,7 +177,7 @@ menu_filter(struct screen_ctx *sc, struct menu_q *menuq, char *prompt,
 			menu_draw(sc, &mc, menuq, &resultq);
 			break;
 		case MotionNotify:
-			menu_handle_move(&e, &mc, sc);
+			menu_handle_move(&e, &mc, &resultq, sc);
 			break;
 		case ButtonRelease:
 			if ((mi = menu_handle_release(&e, &mc, sc, &resultq))
@@ -300,6 +305,7 @@ menu_draw(struct screen_ctx *sc, struct menu_ctx *mc, struct menu_q *menuq,
 	XineramaScreenInfo	*xine;
 	int			 xmin, xmax, ymin, ymax;
 	int			 n, dy, xsave, ysave;
+	XftColor		*xftcolorp = &sc->xftcolor;
 
 	if (mc->list) {
 		if (TAILQ_EMPTY(resultq) && mc->list) {
@@ -375,44 +381,93 @@ menu_draw(struct screen_ctx *sc, struct menu_ctx *mc, struct menu_q *menuq,
 	XClearWindow(X_Dpy, sc->menuwin);
 	XMoveResizeWindow(X_Dpy, sc->menuwin, mc->x, mc->y, mc->width, dy);
 
+	if (mc->hasprompt
+	    && !TAILQ_EMPTY(resultq)
+	    && (mc->searchstr[0] != '\0')) {
+		XFillRectangle(X_Dpy, sc->menuwin, sc->gc,
+		    0, font_height(sc), mc->width, font_height(sc));
+	}
+
+	if (mc->noresult) {
+		XFillRectangle(X_Dpy, sc->menuwin, sc->gc,
+		    0, 0, mc->width, font_height(sc));
+		xftcolorp = &sc->xftmenubgcolor;
+	}
+
 	if (mc->hasprompt) {
 		font_draw(sc, mc->dispstr, strlen(mc->dispstr), sc->menuwin,
-		    0, font_ascent(sc) + 1);
+		    0, font_ascent(sc) + 1, xftcolorp);
 		n = 1;
 	} else
 		n = 0;
 
+
+	if (mc->hasprompt
+	    && !TAILQ_EMPTY(resultq)
+	    && (mc->searchstr[0] != '\0')) {
+		xftcolorp = &sc->xftmenubgcolor;
+	} else {
+		xftcolorp = &sc->xftcolor;
+	}
 	TAILQ_FOREACH(mi, resultq, resultentry) {
 		char *text = mi->print[0] != '\0' ?
 		    mi->print : mi->text;
 
 		font_draw(sc, text, MIN(strlen(text), MENU_MAXENTRY),
-		    sc->menuwin, 0, n * font_height(sc) + font_ascent(sc) + 1);
+		    sc->menuwin, 0, n * font_height(sc) + font_ascent(sc) + 1,
+		    xftcolorp);
 		n++;
+		xftcolorp = &sc->xftcolor;
 	}
+}
 
-	if (mc->hasprompt && n > 1 && (mc->searchstr[0] != '\0'))
-		XFillRectangle(X_Dpy, sc->menuwin, sc->gc,
-		    0, font_height(sc), mc->width, font_height(sc));
+static char *
+menu_get_entry_text(struct menu_q *q, int i)
+{
+	int		 j;
+	struct menu	*mi;
 
-	if (mc->noresult)
-		XFillRectangle(X_Dpy, sc->menuwin, sc->gc,
-		    0, 0, mc->width, font_height(sc));
+	j = 0;
+	TAILQ_FOREACH(mi, q, entry) {
+		if (j++ == i)
+			return mi->print[0] != '\0' ? mi->print : mi->text;
+	}
+	return NULL;
 }
 
 static void
-menu_handle_move(XEvent *e, struct menu_ctx *mc, struct screen_ctx *sc)
+menu_handle_move(XEvent *e, struct menu_ctx *mc, struct menu_q *mq,
+    struct screen_ctx *sc)
 {
+	const char	*text;
+
 	mc->prev = mc->entry;
 	mc->entry = menu_calc_entry(sc, mc, e->xbutton.x, e->xbutton.y);
 
-	if (mc->prev != -1)
-		XFillRectangle(X_Dpy, sc->menuwin, sc->gc, 0,
-		    font_height(sc) * mc->prev, mc->width, font_height(sc));
-	if (mc->entry != -1) {
+	if (mc->prev > 0) {
+		XClearArea(X_Dpy, sc->menuwin, 0, font_height(sc) * mc->prev,
+		    mc->width, font_height(sc), False);
+		text = menu_get_entry_text(mq, mc->prev - 1);
+		font_draw(sc,
+		    text,
+		    MIN(strlen(text), MENU_MAXENTRY),
+		    sc->menuwin,
+		    0,
+		    mc->prev * font_height(sc) + font_ascent(sc) + 1,
+		    &sc->xftcolor);
+	}
+	if (mc->entry > 0) {
 		(void)xu_ptr_regrab(MENUGRABMASK, Cursor_normal);
 		XFillRectangle(X_Dpy, sc->menuwin, sc->gc, 0,
 		    font_height(sc) * mc->entry, mc->width, font_height(sc));
+		text = menu_get_entry_text(mq, mc->entry - 1);
+		font_draw(sc,
+		    text,
+		    MIN(strlen(text), MENU_MAXENTRY),
+		    sc->menuwin,
+		    0,
+		    mc->entry * font_height(sc) + font_ascent(sc) + 1,
+		    &sc->xftmenubgcolor);
 	} else
 		(void)xu_ptr_regrab(MENUGRABMASK, Cursor_default);
 }

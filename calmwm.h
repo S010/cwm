@@ -208,6 +208,7 @@ struct screen_ctx {
 	struct gap		 gap;
 	struct cycle_entry_q	 mruq;
 	XftColor		 xftcolor;
+	XftColor		 xftmenubgcolor;
 	XftDraw			*xftdraw;
 	XftFont			*font;
 	int			 xinerama_no;
@@ -436,9 +437,9 @@ void			 conf_ungrab(struct conf *, struct keybinding *);
 int			 font_ascent(struct screen_ctx *);
 int			 font_descent(struct screen_ctx *);
 void			 font_draw(struct screen_ctx *, const char *, int,
-			     Drawable, int, int);
+			     Drawable, int, int, XftColor *);
 u_int			 font_height(struct screen_ctx *);
-void			 font_init(struct screen_ctx *, const char *);
+void			 font_init(struct screen_ctx *, const char *, XftColor *);
 int			 font_width(struct screen_ctx *, const char *, int);
 XftFont			*font_make(struct screen_ctx *, const char *);
 
