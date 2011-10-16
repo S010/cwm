@@ -1,0 +1,508 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="resource-type" content="document">
+<title>
+CWMRC(5)</title>
+</head>
+<body>
+<table summary="Document Header" class="head" width="100%">
+<col width="30%">
+<col width="30%">
+<col width="30%">
+<tbody>
+<tr>
+<td class="head-ltitle">
+CWMRC(5)</td>
+<td class="head-vol" align="center">
+OpenBSD Programmer's Manual</td>
+<td class="head-rtitle" align="right">
+CWMRC(5)</td>
+</tr>
+</tbody>
+</table>
+<div class="section">
+<h1 id="x4e414d45">NAME</h1> <b class="name">cwmrc</b> &#8212; <span class="desc">calm window manager configuration file</span></div>
+<div class="section">
+<h1 id="x4445534352495054494f4e">DESCRIPTION</h1> This manual page describes the <a class="link-man">cwm(1)</a> configuration file.<p>
+The current line can be extended over multiple lines using a backslash (&#8216;&#92;&#39;). Comments can be put anywhere in the file using a hash mark (&#8216;#&#39;), and extend to the end of the current line. Care should be taken when commenting out multi-line text: the comment is effective until the end of the entire block.<p>
+Arguments containing whitespace should be surrounded by double quotes (&#8203;").<p>
+The following options are accepted:<p>
+<dl style="margin-top: 0.00em;margin-bottom: 0.00em;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">autogroup</b> <i class="arg">group windowname</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">autogroup</b> <i class="arg">group windowname,windowclass</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Control automatic window grouping, based on the name and/or class properties, where <i class="arg">group</i> is a number between 0 and 9. If the group number is 0, then the window will not be grouped; this to allow for &#8220;sticky&#8221; windows in sticky group mode.<p>
+The name and class of a window may be obtained using <a class="link-man">xprop(1)</a>.<p>
+</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">bind</b> <i class="arg">keys command</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Cause the creation of a keybinding, or replacement of a default keybinding. The modifier keys come first, followed by a &#8216;-&#39;.<p>
+The following modifiers are recognised:<p>
+<dl style="margin-top: 0.00em;margin-bottom: 0.00em;margin-left: 5.00ex;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 0.00em;">
+C</dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+The Control key.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+M</dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+The Meta key.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+S</dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+The Shift key.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+4</dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+The Mod4 key (normally the windows key).</dd>
+</dl>
+<p>
+The &#8216;-&#39; should be followed by either a keysym name, taken from <i class="file">/usr/X11R6/include/X11/keysymdef.h</i>, or a numerical keycode value enclosed in &#8220;[]&#8221;. The <i class="arg">command</i> may either be one from the <i class="link-sec"><a class="link-sec" href="#x42494e4420434f4d4d414e44204c495354">BIND COMMAND LIST</a></i> (see below) or the command line that is to be executed.<p>
+A special <i class="arg">command</i> keyword &#8220;unmap&#8221; can be used to remove the named keybinding. This can be used to remove a binding which conflicts with an application.<p>
+</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">borderwidth</b> <i class="arg">pixels</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set the window border width to <i class="arg">pixels</i>.<p>
+</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">color activeborder</b> <i class="arg">color</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set the color of the active border.<p>
+</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">color font</b> <i class="arg">color</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set menu font color.<p>
+</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">color groupborder</b> <i class="arg">color</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set the color of the border while grouping a window.<p>
+</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">color inactiveborder</b> <i class="arg">color</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set the color of the inactive border.<p>
+</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">color menubg</b> <i class="arg">color</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set menu background color.<p>
+</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">color menufg</b> <i class="arg">color</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set menu foreground color.<p>
+</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">color ungroupborder</b> <i class="arg">color</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set the color of the border while ungrouping a window.<p>
+</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">command</b> <i class="arg">name path</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Every <i class="arg">name</i> entry is shown in the application menu. When selected, the defined <i class="arg">path</i> is executed with <a class="link-man">execve(2)</a>.<p>
+The <i class="arg">name</i> entries <b class="name">term</b> and <b class="name">lock</b> have a special meaning. They point to the terminal and screen locking programs specified by keybindings. The defaults are <a class="link-man">xterm(1)</a> and <a class="link-man">xlock(1)</a>, respectively.<p>
+</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">fontname</b> <i class="arg">font</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Change the default <i class="arg">font</i> for <a class="link-man">Xft(3)</a>.<p>
+</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">gap</b> <i class="arg">top bottom left right</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Define a &#8220;gap&#8221; in pixels at the edge of the screen, so that when a window is maximized it will not overlap this area. This &#8220;gap&#8221; can be used for applications such as <a class="link-man">xclock(1)</a>, where the user may wish to remain visible.<p>
+</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">ignore</b> <i class="arg">windowname</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Ignore, and do not warp to, windows with the name <i class="arg">windowname</i> when drawing borders and cycling through windows.<p>
+</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">mousebind</b> <i class="arg">buttons command</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Cause the creation of a mouse binding, or replacement of a default mouse binding. The modifier keys come first, followed by a &#8216;-&#39;.<p>
+The following modifiers are recognised:<p>
+<dl style="margin-top: 0.00em;margin-bottom: 0.00em;margin-left: 5.00ex;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 0.00em;">
+C</dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+The Control key.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+M</dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+The Meta key.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+S</dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+The Shift key.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+4</dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+The Mod4 key (normally the windows key).</dd>
+</dl>
+<p>
+The &#8216;-&#39; should be followed by number:<p>
+<dl style="margin-top: 0.00em;margin-bottom: 0.00em;margin-left: 5.00ex;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 0.00em;">
+1</dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Left mouse button.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+2</dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Middle mouse button.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+3</dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Right mouse button.</dd>
+</dl>
+<p>
+The <i class="arg">command</i> may be taken from the <i class="link-sec"><a class="link-sec" href="#x4d4f55534542494e4420434f4d4d414e44204c495354">MOUSEBIND COMMAND LIST</a></i> (see below).<p>
+</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">moveamount</b> <i class="arg">pixels</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Set a default size for the keyboard movement bindings, in pixels. The default is 1.<p>
+</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">sticky</b> <b class="cmd">yes</b>&#8203;|<b class="cmd">no</b></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Toggle sticky group mode. The default behavior for new windows is to not assign any group. By enabling sticky group mode, <a class="link-man">cwm(1)</a> will assign new windows to the currently selected group.</dd>
+</dl>
+</div>
+<div class="section">
+<h1 id="x4558414d504c4520434f4e46494755524154494f4e">EXAMPLE CONFIGURATION</h1><pre style="margin-left: 0.00ex;" class="lit display">
+# Set default Xft(3) font 
+fontname "sans-serif:pixelsize=14:bold" 
+ 
+# Turn on sticky-group mode 
+sticky yes 
+ 
+# Any entry here is shown in the application menu 
+command firefox		firefox 
+command xmms		xmms 
+command top		"xterm -e top" 
+ 
+# Autogroup definitions 
+autogroup 3 "aterm,XTerm" 
+autogroup 3 "xterm,XTerm" 
+ 
+# Ignore programs by that name by not drawing borders around them. 
+ignore XMMS 
+ignore xwi 
+ignore xapm 
+ignore xclock 
+ 
+# Keybindings 
+bind CM-r	label 
+bind CS-Return	"xterm -e top" 
+bind 4-o	unmap 
+bind M-1	grouponly1 
+bind M-2	grouponly2 
+bind M-3	grouponly3 
+bind MS-1	movetogroup1 
+bind MS-2	movetogroup2 
+bind MS-3	movetogroup3 
+ 
+# Mousebindings 
+mousebind M-2	window_lower 
+mousebind M-3	window_resize</pre>
+</div>
+<div class="section">
+<h1 id="x42494e4420434f4d4d414e44204c495354">BIND COMMAND LIST</h1><dl style="margin-top: 0.00em;margin-bottom: 0.00em;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 0.00em;">
+reload</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Reload configuration.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+quit</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Quit <a class="link-man">cwm(1)</a>.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+terminal</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Spawn a new terminal.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+lock</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Lock the screen.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+search</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Launch window search menu.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+menusearch</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Launch application search menu.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+exec</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Launch &#8220;exec program&#8221; menu.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+exec_wm</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Launch &#8220;exec WindowManager&#8221; menu.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+ssh</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Launch &#8220;ssh&#8221; menu.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+group[n]</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Select group n, where n is 1-9.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+grouponly[n]</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Like <i class="arg">group[n]</i> but also hides the other groups.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+nogroup</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Select all groups.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+grouptoggle</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Toggle group membership of current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+movetogroup[n]</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Hide current window from display and move to group n, where n is 1-9.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+cyclegroup</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Forward cycle through groups.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+rcyclegroup</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Reverse cycle through groups.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+cycle</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Forward cycle through windows.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+rcycle</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Reverse cycle through windows.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+cycleingroup</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Forward cycle through windows in current group.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+rcycleingroup</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Reverse cycle through windows in current group.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+snapdist</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Minimum distance to snap-to adjacent edge.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+delete</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Delete current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+hide</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Hide current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+lower</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Lower current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+raise</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Raise current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+label</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Label current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+freeze</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Freeze current window geometry.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+maximize</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Maximize current window full-screen.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+vmaximize</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Maximize current window vertically.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+hmaximize</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Maximize current window horizontally.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+moveup</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Move window <i class="arg">moveamount</i> pixels up.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+movedown</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Move window <i class="arg">moveamount</i> pixels down.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+moveright</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Move window <i class="arg">moveamount</i> pixels right.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+moveleft</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Move window <i class="arg">moveamount</i> pixels left.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+bigmoveup</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Move window 10 times <i class="arg">moveamount</i> pixels up.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+bigmovedown</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Move window 10 times <i class="arg">moveamount</i> pixels down.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+bigmoveright</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Move window 10 times <i class="arg">moveamount</i> pixels right.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+bigmoveleft</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Move window 10 times <i class="arg">moveamount</i> pixels left.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+resizeup</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Resize window <i class="arg">moveamount</i> pixels up.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+resizedown</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Resize window <i class="arg">moveamount</i> pixels down.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+resizeright</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Resize window <i class="arg">moveamount</i> pixels right.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+resizeleft</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Resize window <i class="arg">moveamount</i> pixels left.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+bigresizeup</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Resize window 10 times <i class="arg">moveamount</i> pixels up.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+bigresizedown</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Resize window 10 times <i class="arg">moveamount</i> pixels down.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+bigresizeright</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Resize window 10 times <i class="arg">moveamount</i> pixels right.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+bigresizeleft</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Resize window 10 times <i class="arg">moveamount</i> pixels left.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+ptrmoveup</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Move pointer <i class="arg">moveamount</i> pixels up.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+ptrmovedown</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Move pointer <i class="arg">moveamount</i> pixels down.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+ptrmoveright</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Move pointer <i class="arg">moveamount</i> pixels right.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+ptrmoveleft</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Move pointer <i class="arg">moveamount</i> pixels left.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+bigptrmoveup</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Move pointer 10 times <i class="arg">moveamount</i> pixels up.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+bigptrmovedown</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Move pointer 10 times <i class="arg">moveamount</i> pixels down.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+bigptrmoveright</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Move pointer 10 times <i class="arg">moveamount</i> pixels right.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+bigptrmoveleft</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Move pointer 10 times <i class="arg">moveamount</i> pixels left.</dd>
+</dl>
+</div>
+<div class="section">
+<h1 id="x4d4f55534542494e4420434f4d4d414e44204c495354">MOUSEBIND COMMAND LIST</h1><dl style="margin-top: 0.00em;margin-bottom: 0.00em;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 0.00em;">
+window_move</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Move current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+window_resize</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Resize current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+window_lower</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Lower current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+window_raise</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Raise current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+window_hide</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Hide current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+window_grouptoggle</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Toggle group membership of current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+menu_group</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Launch group list.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+menu_unhide</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Launch hidden window list.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+menu_cmd</dt>
+<dd class="list-tag" style="margin-left: 18.00ex;">
+Launch command list.</dd>
+</dl>
+</div>
+<div class="section">
+<h1 id="x46494c4553">FILES</h1><dl style="margin-top: 0.00em;margin-bottom: 0.00em;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 0.00em;">
+<i class="file">~/.cwmrc</i></dt>
+<dd class="list-tag" style="margin-left: 11.00ex;">
+default <a class="link-man">cwm(1)</a> configuration file</dd>
+</dl>
+</div>
+<div class="section">
+<h1 id="x53454520414c534f">SEE ALSO</h1> <a class="link-man">cwm(1)</a></div>
+<div class="section">
+<h1 id="x484953544f5259">HISTORY</h1> The <b class="name">cwmrc</b> file format first appeared in <span class="unix">OpenBSD&#160;4.4</span>.</div>
+<table summary="Document Footer" class="foot" width="100%">
+<col width="50%">
+<col width="50%">
+<tbody>
+<tr>
+<td class="foot-date">
+September 8, 2011</td>
+<td class="foot-os" align="right">
+OpenBSD 5.0</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
+

@@ -1,0 +1,319 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="resource-type" content="document">
+<title>
+CWM(1)</title>
+</head>
+<body>
+<table summary="Document Header" class="head" width="100%">
+<col width="30%">
+<col width="30%">
+<col width="30%">
+<tbody>
+<tr>
+<td class="head-ltitle">
+CWM(1)</td>
+<td class="head-vol" align="center">
+OpenBSD Reference Manual</td>
+<td class="head-rtitle" align="right">
+CWM(1)</td>
+</tr>
+</tbody>
+</table>
+<div class="section">
+<h1 id="x4e414d45">NAME</h1> <b class="name">cwm</b> &#8212; <span class="desc">a lightweight and efficient window manager for X11</span></div>
+<div class="section">
+<h1 id="x53594e4f50534953">SYNOPSIS</h1><table class="synopsis">
+<col style="width: 3.00ex;">
+<col>
+<tbody>
+<tr>
+<td>
+cwm</td>
+<td>
+&#91;<span class="opt"><b class="flag">&#45;c</b> <i class="arg">file</i></span>&#93; &#91;<span class="opt"><b class="flag">&#45;d</b> <i class="arg">display</i></span>&#93;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section">
+<h1 id="x4445534352495054494f4e">DESCRIPTION</h1> <b class="name">cwm</b> is a window manager for X11 which contains many features that concentrate on the efficiency and transparency of window management. <b class="name">cwm</b> also aims to maintain the simplest and most pleasant aesthetic.<p>
+The following notation is used throughout this page:<p>
+<dl style="margin-top: 0.00em;margin-bottom: 0.00em;margin-left: 5.00ex;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">C</b></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Control.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">M</b></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Meta.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">S</b></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Shift.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">M1</b></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Left mouse button.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">M2</b></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Middle mouse button.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">M3</b></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Right mouse button.</dd>
+</dl>
+<p>
+<b class="name">cwm</b> is very simple in its use. Most of the actions are initiated via key bindings. The current key bindings are described below; their functionality is described in more detail later.<p>
+<dl style="margin-top: 0.00em;margin-bottom: 0.00em;margin-left: 5.00ex;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">CM-Return</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Spawn a new terminal.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">CM-Delete</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Lock the screen.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">M-Return</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Hide current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">M-Down</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Lower current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">M-Up</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Raise current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">M-/</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Search for windows.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">C-/</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Search for applications.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">CM-n</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Label current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">M-Tab</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Cycle through currently visible windows.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">MS-Tab</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Reverse cycle through currently visible windows.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">CM-x</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Delete current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">CM-[n]</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Select group n, where n is 1-9.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">CM-0</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Select all groups.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">CM-g</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Toggle group membership of current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">M-Right</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Cycle through active groups.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">M-Left</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Reverse cycle through active groups.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">CMS-f</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Toggle freezing geometry of current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">CM-f</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Toggle full-screen size of current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">CM-=</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Toggle vertical maximization of current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">CMS-=</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Toggle horizontal maximization of current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">M-?</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Spawn &#8220;exec program&#8221; dialog.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">M-.</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Spawn &#8220;ssh to&#8221; dialog. This parses <i class="file">$HOME/.ssh/known_hosts</i> to provide host auto-completion. <a class="link-man">ssh(1)</a> will be executed via the configured terminal emulator.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">CM-w</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Spawn &#8220;exec WindowManager&#8221; dialog; allows you to switch from <b class="name">cwm</b> to another window manager without restarting the X server.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">CMS-r</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Reload configuration.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">CMS-q</b></dt>
+<dd class="list-tag" style="margin-left: 14.00ex;">
+Quit <b class="name">cwm</b>.</dd>
+</dl>
+<p>
+The mouse bindings are also important, they are:<p>
+<dl style="margin-top: 0.00em;margin-bottom: 0.00em;margin-left: 5.00ex;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">M-M1</b></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Move current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">CM-M1</b></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Toggle group membership of current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">M-M2</b></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Resize current window</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">M-M3</b></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Lower current window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">CMS-M3</b></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Hide current window.</dd>
+</dl>
+<p>
+The options for <b class="name">cwm</b> are as follows:<dl style="margin-top: 0.00em;margin-bottom: 0.00em;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;c</b> <i class="arg">file</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Specify the config file to use.  Defaults to <i class="file">~/.cwmrc</i>.</dd>
+<dt class="list-tag" style="margin-top: 1.00em;">
+<b class="flag">&#45;d</b> <i class="arg">display</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+Specify the display to use.</dd>
+</dl>
+</div>
+<div class="section">
+<h1 id="x504f494e544552204d4f56454d454e54">POINTER MOVEMENT</h1> The pointer can be moved with the use of the keyboard through bindings. <b class="cmd">C-[Up|Down|Left|Right]</b> moves the pointer a small amount, while <b class="cmd">CS-[Up|Down|Left|Right]</b> moves the pointer a larger amount. For example, to move the pointer to the left by a small amount, press <b class="cmd">C-Left</b>. To move the pointer down by a larger amount, press <b class="cmd">CS-Down</b>.</div>
+<div class="section">
+<h1 id="x57494e444f57204d4f56454d454e5420414e4420524553495a494e47">WINDOW MOVEMENT AND RESIZING</h1> <b class="name">cwm</b> windows can be moved with the use of the keyboard through <b class="flag">vi</b>-like bindings. <b class="cmd">M-[hjkl]</b> moves the current window a small amount, while <b class="cmd">MS-[hjkl]</b> moves the current window a larger amount. For example, to move the current window to the left a small amount, press <b class="cmd">M-h</b>. To move the current window down by a larger amount, press <b class="cmd">MS-j</b>.<p>
+Similarly, windows may be resized with the same key bindings with the addition of the Control key. <b class="cmd">CM-[hjkl]</b> resizes the window a small amount and <b class="cmd">CMS-[hjkl]</b> resizes by a larger increment.</div>
+<div class="section">
+<h1 id="x534541524348">SEARCH</h1> <b class="name">cwm</b> features the ability to search for windows by their current title, old titles, and by their label. The priority for the search results are: label, current title, old titles in reverse order, and finally window class name. <b class="name">cwm</b> keeps a history of the 5 previous titles of a window.<p>
+When searching, the leftmost character of the result list may show a flag:<p>
+<dl style="margin-top: 0.00em;margin-bottom: 0.00em;margin-left: 5.00ex;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 0.00em;">
+!</dt>
+<dd class="list-tag" style="margin-left: 10.00ex;">
+The window is the currently focused window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+&amp;</dt>
+<dd class="list-tag" style="margin-left: 10.00ex;">
+The window is hidden.</dd>
+</dl>
+<p>
+The following key bindings may be used to navigate the result list:<p>
+<dl style="margin-top: 0.00em;margin-bottom: 0.00em;margin-left: 5.00ex;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">[Down], C-s</b> or <b class="cmd">M-j</b></dt>
+<dd class="list-tag" style="margin-left: 20.00ex;">
+Select the next window in the list.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">[Up], C-r</b> or <b class="cmd">M-k</b></dt>
+<dd class="list-tag" style="margin-left: 20.00ex;">
+Select the previous window in the list.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">[Backspace]</b> or <b class="cmd">C-h</b></dt>
+<dd class="list-tag" style="margin-left: 20.00ex;">
+Backspace.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">C-u</b></dt>
+<dd class="list-tag" style="margin-left: 20.00ex;">
+Clear the input.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">[Return]</b></dt>
+<dd class="list-tag" style="margin-left: 20.00ex;">
+Focus the selected window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">[Esc]</b></dt>
+<dd class="list-tag" style="margin-left: 20.00ex;">
+Cancel.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">C-a</b></dt>
+<dd class="list-tag" style="margin-left: 20.00ex;">
+Whenever there are no matching windows, list every window.</dd>
+</dl>
+</div>
+<div class="section">
+<h1 id="x47524f555053">GROUPS</h1> <b class="name">cwm</b> has the ability to group windows together, and use the groups to perform operations on the entire group instead of just one window. Currently, the only operation that is supported is to hide and unhide the grouped windows. Together with the <i class="file">sticky</i> option, this can be used to emulate virtual desktops.<p>
+To edit groups, use the group selection commands to toggle membership of a group. A blue border will be shown briefly on windows added to the current group, and a red border will be shown on those just removed.</div>
+<div class="section">
+<h1 id="x4d454e5553">MENUS</h1> Menus are recalled by clicking the mouse on the root window:<p>
+<dl style="margin-top: 0.00em;margin-bottom: 0.00em;margin-left: 5.00ex;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">M1</b></dt>
+<dd class="list-tag" style="margin-left: 10.00ex;">
+Show list of currently hidden windows. Clicking on an item will unhide that window.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">M2</b></dt>
+<dd class="list-tag" style="margin-left: 10.00ex;">
+Show list of currently defined groups. Clicking on an item will hide/unhide that group.</dd>
+<dt class="list-tag" style="margin-top: 0.00em;">
+<b class="cmd">M3</b></dt>
+<dd class="list-tag" style="margin-left: 10.00ex;">
+Show list of applications as defined in <i class="file">~/.cwmrc</i>. Clicking on an item will spawn that application.</dd>
+</dl>
+</div>
+<div class="section">
+<h1 id="x454e5649524f4e4d454e54">ENVIRONMENT</h1><dl style="margin-top: 0.00em;margin-bottom: 0.00em;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 1.00em;">
+DISPLAY</dt>
+<dd class="list-tag" style="margin-left: 10.00ex;">
+<b class="name">cwm</b> starts on this display unless the <b class="flag">&#45;d</b> option is given.</dd>
+</dl>
+</div>
+<div class="section">
+<h1 id="x46494c4553">FILES</h1><dl style="margin-top: 0.00em;margin-bottom: 0.00em;" class="list list-tag">
+<dt class="list-tag" style="margin-top: 1.00em;">
+<i class="file">~/.cwmrc</i></dt>
+<dd class="list-tag" style="margin-left: 6.00ex;">
+</dd>
+</dl>
+</div>
+<div class="section">
+<h1 id="x53454520414c534f">SEE ALSO</h1> <a class="link-man">cwmrc(5)</a></div>
+<div class="section">
+<h1 id="x415554484f5253">AUTHORS</h1> <span class="author"></span><p>
+<b class="name">cwm</b> was developed by <span class="author">Marius Aamodt Eriksen</span> &#60;marius@monkey.org&#62; with contributions from <span class="author">Andy Adamson</span> &#60;dros@monkey.org&#62;, <span class="author">Niels Provos</span> &#60;provos@monkey.org&#62;, and <span class="author">Antti Nyk&#228;nen</span> &#60;aon@iki.fi&#62;. Ideas, discussion with many others.</div>
+<div class="section">
+<h1 id="x484953544f5259">HISTORY</h1> <b class="name">cwm</b> was originally inspired by evilwm, but was rewritten from scratch due to limitations in the evilwm codebase. The from-scratch rewrite borrowed some code from 9wm, however that code has since been removed or rewritten.<p>
+<b class="name">cwm</b> first appeared in <span class="unix">OpenBSD&#160;4.2</span>.</div>
+<table summary="Document Footer" class="foot" width="100%">
+<col width="50%">
+<col width="50%">
+<tbody>
+<tr>
+<td class="foot-date">
+May 7, 2011</td>
+<td class="foot-os" align="right">
+OpenBSD 5.0</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
+
