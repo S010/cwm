@@ -1,0 +1,12 @@
+cwm is a lightweight and efficient window manager for X.
+
+More information is available in the manpage (see the cwm.1.txt file
+in this directory).
+
+
+This is a mirror of OpenBSD's cwm which has been made to compile and
+work on GNU/Linux.
+
+There are also other slight deviations from OpenBSD source tree
+concerning functionality. I'm not listing them here because in the
+future they might get incorporated into OpenBSD source tree.
