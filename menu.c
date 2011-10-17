@@ -83,12 +83,6 @@ menu_init(struct screen_ctx *sc)
 	    sc->color[CWM_COLOR_FG_MENU].pixel,
 	    sc->color[CWM_COLOR_BG_MENU].pixel);
 
-	/*
-	gv.foreground =
-	    sc->color[CWM_COLOR_FG_MENU].pixel^sc->color[CWM_COLOR_BG_MENU].pixel;
-	gv.background = sc->color[CWM_COLOR_BG_MENU].pixel;
-	gv.function = GXxor;
-	*/
 	gv.foreground = sc->color[CWM_COLOR_FG_MENU].pixel;
 	gv.background = sc->color[CWM_COLOR_BG_MENU].pixel;
 	gv.function = GXcopy;
