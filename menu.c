@@ -418,12 +418,10 @@ menu_draw(struct screen_ctx *sc, struct menu_ctx *mc, struct menu_q *menuq,
 static char *
 menu_get_entry_text(struct menu_q *q, int i)
 {
-	int		 j;
 	struct menu	*mi;
 
-	j = 0;
-	TAILQ_FOREACH(mi, q, entry) {
-		if (j++ == i)
+	TAILQ_FOREACH(mi, q, resultentry) {
+		if (i-- == 0)
 			return mi->print[0] != '\0' ? mi->print : mi->text;
 	}
 	return NULL;
@@ -434,33 +432,43 @@ menu_handle_move(XEvent *e, struct menu_ctx *mc, struct menu_q *mq,
     struct screen_ctx *sc)
 {
 	const char	*text;
+	int		 entry;
+
+	entry = menu_calc_entry(sc, mc, e->xbutton.x, e->xbutton.y);
+
+	if (entry == mc->entry)
+		return;
 
 	mc->prev = mc->entry;
-	mc->entry = menu_calc_entry(sc, mc, e->xbutton.x, e->xbutton.y);
+	mc->entry = entry;
 
-	if (mc->prev > 0) {
-		XClearArea(X_Dpy, sc->menuwin, 0, font_height(sc) * mc->prev,
+	if (mc->prev >= 0) {
+		XClearArea(X_Dpy, sc->menuwin, 0,
+		    font_height(sc) * (mc->prev + (mc->hasprompt ? 1 : 0)),
 		    mc->width, font_height(sc), False);
-		text = menu_get_entry_text(mq, mc->prev - 1);
+		text = menu_get_entry_text(mq, mc->prev);
 		font_draw(sc,
 		    text,
 		    MIN(strlen(text), MENU_MAXENTRY),
 		    sc->menuwin,
 		    0,
-		    mc->prev * font_height(sc) + font_ascent(sc) + 1,
+		    (mc->prev + (mc->hasprompt ? 1 : 0))
+		    * font_height(sc) + font_ascent(sc) + 1,
 		    &sc->xftcolor);
 	}
-	if (mc->entry > 0) {
+	if (mc->entry >= 0) {
 		(void)xu_ptr_regrab(MENUGRABMASK, Cursor_normal);
 		XFillRectangle(X_Dpy, sc->menuwin, sc->gc, 0,
-		    font_height(sc) * mc->entry, mc->width, font_height(sc));
-		text = menu_get_entry_text(mq, mc->entry - 1);
+		    font_height(sc) * (mc->entry + (mc->hasprompt ? 1 : 0)),
+		    mc->width, font_height(sc));
+		text = menu_get_entry_text(mq, mc->entry);
 		font_draw(sc,
 		    text,
 		    MIN(strlen(text), MENU_MAXENTRY),
 		    sc->menuwin,
 		    0,
-		    mc->entry * font_height(sc) + font_ascent(sc) + 1,
+		    (mc->entry + (mc->hasprompt ? 1 : 0))
+		    * font_height(sc) + font_ascent(sc) + 1,
 		    &sc->xftmenubgcolor);
 	} else
 		(void)xu_ptr_regrab(MENUGRABMASK, Cursor_default);
@@ -471,15 +479,15 @@ menu_handle_release(XEvent *e, struct menu_ctx *mc, struct screen_ctx *sc,
     struct menu_q *resultq)
 {
 	struct menu	*mi;
-	int		 entry, i = 0;
+	int		 entry;
 
 	entry = menu_calc_entry(sc, mc, e->xbutton.x, e->xbutton.y);
 
-	if (mc->hasprompt)
-		i = 1;
+	if (entry == -1)
+		return NULL;
 
 	TAILQ_FOREACH(mi, resultq, resultentry)
-		if (entry == i++)
+		if (entry-- == 0)
 			break;
 	if (mi == NULL) {
 		mi = xmalloc(sizeof(*mi));
@@ -501,8 +509,12 @@ menu_calc_entry(struct screen_ctx *sc, struct menu_ctx *mc, int x, int y)
 	    y > font_height(sc) * mc->num || entry < 0 || entry >= mc->num)
 		entry = -1;
 
-	if (mc->hasprompt && entry == 0)
-		entry = -1;
+	if (mc->hasprompt) {
+		if (entry == 0)
+			entry = -1;
+		else
+			--entry;
+	}
 
 	return (entry);
 }
