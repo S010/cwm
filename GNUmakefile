@@ -7,7 +7,7 @@ CFLAGS+=	$(INC_DBG_INFO) \
 		-include openbsd.h -include queue.h -include /usr/include/signal.h \
 		$(shell pkg-config --cflags x11 freetype2)
 
-LDFLAGS+=	$(INC_DBG_INFO) $(shell pkg-config --libs xft xrender x11 xau xdmcp fontconfig xinerama xrandr xext) -lexpat -lz
+LDFLAGS+=	$(INC_DBG_INFO) $(shell pkg-config --libs xft xrender x11 xau fontconfig xinerama xrandr xext) -lz
 
 .SUFFIXES: .c .o
 PROG=	cwm
