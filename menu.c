@@ -156,6 +156,8 @@ menu_filter(struct screen_ctx *sc, struct menu_q *menuq, char *prompt,
 	XGrabKeyboard(X_Dpy, sc->menuwin, True,
 	    GrabModeAsync, GrabModeAsync, CurrentTime);
 
+	menu_draw(sc, &mc, menuq, &resultq);
+
 	for (;;) {
 		mc.changed = 0;
 
