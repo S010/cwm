@@ -299,6 +299,7 @@ menu_draw(struct screen_ctx *sc, struct menu_ctx *mc, struct menu_q *menuq,
 	XineramaScreenInfo	*xine;
 	int			 xmin, xmax, ymin, ymax;
 	int			 n, dy, xsave, ysave;
+	int			 bwidth2;
 	XftColor		*xftcolorp = &sc->xftcolor;
 
 	if (mc->list) {
@@ -356,17 +357,19 @@ menu_draw(struct screen_ctx *sc, struct menu_ctx *mc, struct menu_q *menuq,
 	xsave = mc->x;
 	ysave = mc->y;
 
+	bwidth2 = Conf.bwidth * 2;
+
 	if (mc->x < xmin)
 		mc->x = xmin;
-	else if (mc->x + mc->width >= xmax)
-		mc->x = xmax - mc->width;
+	else if (mc->x + mc->width + bwidth2 >= xmax)
+		mc->x = xmax - mc->width - bwidth2;
 
-	if (mc->y + dy >= ymax)
-		mc->y = ymax - dy;
+	if (mc->y + dy + bwidth2 >= ymax)
+		mc->y = ymax - dy - bwidth2;
 	/* never hide the top of the menu */
 	if (mc->y < ymin) {
 		mc->y = ymin;
-		dy = ymax - ymin;
+		dy = ymax - ymin - bwidth2;
 	}
 
 	if (mc->x != xsave || mc->y != ysave)
