@@ -178,7 +178,7 @@ x_setupscreen(struct screen_ctx *sc, u_int which)
 
 	xu_setwmname(sc);
 
-	rootattr.cursor = Cursor_normal;
+	rootattr.cursor = Cursor_default;
 	rootattr.event_mask = CHILDMASK|PropertyChangeMask|EnterWindowMask|
 	    LeaveWindowMask|ColormapChangeMask|BUTTONMASK;
 
