@@ -25,11 +25,11 @@ parse.c:
 	mv y.tab.c parse.c
 
 $(PROG): $(OBJS) $(MANPAGES)
-	@$(CC) $(INC_DBG_INFO) $(LDFLAGS) $(OBJS) -o $@
+	@$(CC) $(LDFLAGS) -o $@ $(OBJS)
 	@echo CC $@
 
 .c.o:
-	@$(CC) -c $(CFLAGS) $< -o $@
+	@$(CC) -c $(CFLAGS) -o $@ $<
 	@echo CC $@
 
 $(MANPAGES): cwm.1 cwmrc.5
