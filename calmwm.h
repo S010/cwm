@@ -315,6 +315,7 @@ void			 client_getsizehints(struct client_ctx *);
 void			 client_hide(struct client_ctx *);
 void			 client_horizmaximize(struct client_ctx *);
 void			 client_leave(struct client_ctx *);
+void			 client_leftmaximize(struct client_ctx *);
 void			 client_lower(struct client_ctx *);
 void			 client_map(struct client_ctx *);
 void			 client_maximize(struct client_ctx *);
@@ -325,6 +326,7 @@ void			 client_ptrsave(struct client_ctx *);
 void			 client_ptrwarp(struct client_ctx *);
 void			 client_raise(struct client_ctx *);
 void			 client_resize(struct client_ctx *);
+void			 client_rightmaximize(struct client_ctx *);
 void			 client_send_delete(struct client_ctx *);
 void			 client_setactive(struct client_ctx *, int);
 void			 client_setname(struct client_ctx *);
@@ -378,6 +380,8 @@ void			 kbfunc_client_hide(struct client_ctx *, union arg *);
 void			 kbfunc_client_hmaximize(struct client_ctx *,
 			     union arg *);
 void			 kbfunc_client_label(struct client_ctx *, union arg *);
+void			 kbfunc_client_lmaximize(struct client_ctx *,
+			     union arg *);
 void			 kbfunc_client_lower(struct client_ctx *, union arg *);
 void			 kbfunc_client_maximize(struct client_ctx *,
 			     union arg *);
@@ -387,6 +391,8 @@ void			 kbfunc_client_nogroup(struct client_ctx *,
 			     union arg *);
 void			 kbfunc_client_raise(struct client_ctx *, union arg *);
 void			 kbfunc_client_rcycle(struct client_ctx *, union arg *);
+void			 kbfunc_client_rmaximize(struct client_ctx *,
+			     union arg *);
 void			 kbfunc_client_search(struct client_ctx *, union arg *);
 void			 kbfunc_client_vmaximize(struct client_ctx *,
 			     union arg *);

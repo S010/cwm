@@ -18,6 +18,8 @@
  * $OpenBSD: kbfunc.c,v 1.58 2011/08/29 09:09:45 okan Exp $
  */
 
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <sys/param.h>
 #include <sys/queue.h>
 
@@ -278,7 +280,7 @@ kbfunc_exec(struct client_ctx *cc, union arg *arg)
 	struct dirent		*dp;
 	struct menu		*mi;
 	struct menu_q		 menuq;
-	int			 l, i, cmd = arg->i;
+	int			 l, i, j, cmd = arg->i;
 
 	sc = cc->sc;
 	switch (cmd) {
@@ -306,6 +308,17 @@ kbfunc_exec(struct client_ctx *cc, union arg *arg)
 	}
 	*ap = NULL;
 	for (i = 0; i < NPATHS && paths[i] != NULL; i++) {
+		/* make sure this isn't a symlink to a path we already visited */
+		if ((l = readlink(paths[i], tpath, sizeof(tpath) - 1)) != -1) {
+			tpath[l] = '\0';
+			for (j = 0; j < NPATHS && paths[j] != NULL; ++j) {
+				if (!strcmp(paths[j], tpath))
+					break;
+			}
+			if (j < NPATHS || paths[j] != NULL)
+				continue;
+		}
+
 		if ((dirp = opendir(paths[i])) == NULL)
 			continue;
 
@@ -510,6 +523,18 @@ void
 kbfunc_client_hmaximize(struct client_ctx *cc, union arg *arg)
 {
 	client_horizmaximize(cc);
+}
+
+void
+kbfunc_client_lmaximize(struct client_ctx *cc, union arg *arg)
+{
+	client_leftmaximize(cc);
+}
+
+void
+kbfunc_client_rmaximize(struct client_ctx *cc, union arg *arg)
+{
+	client_rightmaximize(cc);
 }
 
 void

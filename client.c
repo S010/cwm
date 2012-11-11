@@ -426,6 +426,130 @@ resize:
 }
 
 void
+client_leftmaximize(struct client_ctx *cc)
+{
+	struct screen_ctx	*sc = cc->sc;
+	int			 x_org = 0, y_org = 0;
+	int			 xmax = sc->xmax, ymax = sc->ymax;
+
+	if (cc->flags & CLIENT_FREEZE)
+		return;
+
+	if (cc->flags & CLIENT_VMAXIMIZED) {
+		cc->geom.x = cc->savegeom.x;
+		cc->geom.y = cc->savegeom.y;
+		cc->geom.width = cc->savegeom.width;
+		cc->geom.height = cc->savegeom.height;
+		cc->bwidth = Conf.bwidth;
+		// XXX
+		if (cc->flags & CLIENT_HMAXIMIZED)
+			cc->geom.width -= cc->bwidth * 2;
+		cc->flags &= ~CLIENT_VMAXIMIZED;
+		goto resize;
+	}
+
+	cc->savegeom.x = cc->geom.x;
+	cc->savegeom.y = cc->geom.y;
+	cc->savegeom.width = cc->geom.width;
+	cc->savegeom.height = cc->geom.height;
+	client_ptrsave(cc);
+
+	/* if this will make us fully maximized then remove boundary */
+	// XXX
+	if ((cc->flags & CLIENT_MAXFLAGS) == CLIENT_HMAXIMIZED) {
+		cc->geom.width += Conf.bwidth * 2;
+		cc->bwidth = 0;
+	}
+
+	if (HasXinerama) {
+		XineramaScreenInfo *xine;
+		xine = screen_find_xinerama(sc,
+		    cc->geom.x + cc->geom.width / 2,
+		    cc->geom.y + cc->geom.height / 2);
+		if (xine == NULL)
+			goto calc;
+		x_org = xine->x_org;
+		y_org = xine->y_org;
+		xmax = xine->width;
+		ymax = xine->height;
+	}
+calc:
+	cc->geom.x = x_org + sc->gap.left;
+	cc->geom.y = y_org + sc->gap.top;
+	cc->geom.width = (xmax - x_org - sc->gap.left - sc->gap.right)/ 2
+	    - cc->bwidth * 2;
+	cc->geom.height = ymax - (cc->bwidth * 2) - (sc->gap.top +
+	    sc->gap.bottom);
+	cc->flags |= CLIENT_VMAXIMIZED;
+
+resize:
+	client_resize(cc);
+	client_ptrwarp(cc);
+}
+
+void
+client_rightmaximize(struct client_ctx *cc)
+{
+	struct screen_ctx	*sc = cc->sc;
+	int			 x_org = 0, y_org = 0;
+	int			 xmax = sc->xmax, ymax = sc->ymax;
+
+	if (cc->flags & CLIENT_FREEZE)
+		return;
+
+	if (cc->flags & CLIENT_VMAXIMIZED) {
+		cc->geom.x = cc->savegeom.x;
+		cc->geom.y = cc->savegeom.y;
+		cc->geom.width = cc->savegeom.width;
+		cc->geom.height = cc->savegeom.height;
+		cc->bwidth = Conf.bwidth;
+		// XXX
+		if (cc->flags & CLIENT_HMAXIMIZED)
+			cc->geom.width -= cc->bwidth * 2;
+		cc->flags &= ~CLIENT_VMAXIMIZED;
+		goto resize;
+	}
+
+	cc->savegeom.x = cc->geom.x;
+	cc->savegeom.y = cc->geom.y;
+	cc->savegeom.width = cc->geom.width;
+	cc->savegeom.height = cc->geom.height;
+	client_ptrsave(cc);
+
+	/* if this will make us fully maximized then remove boundary */
+	// XXX
+	if ((cc->flags & CLIENT_MAXFLAGS) == CLIENT_HMAXIMIZED) {
+		cc->geom.width += Conf.bwidth * 2;
+		cc->bwidth = 0;
+	}
+
+	if (HasXinerama) {
+		XineramaScreenInfo *xine;
+		xine = screen_find_xinerama(sc,
+		    cc->geom.x + cc->geom.width / 2,
+		    cc->geom.y + cc->geom.height / 2);
+		if (xine == NULL)
+			goto calc;
+		x_org = xine->x_org;
+		y_org = xine->y_org;
+		xmax = xine->width;
+		ymax = xine->height;
+	}
+calc:
+	cc->geom.width = (xmax - x_org - sc->gap.left - sc->gap.right) / 2
+	    - cc->bwidth * 2;
+	cc->geom.x = x_org + sc->gap.left + cc->geom.width + cc->bwidth * 2;
+	cc->geom.y = y_org + sc->gap.top;
+	cc->geom.height = ymax - (cc->bwidth * 2) - (sc->gap.top +
+	    sc->gap.bottom);
+	cc->flags |= CLIENT_VMAXIMIZED;
+
+resize:
+	client_resize(cc);
+	client_ptrwarp(cc);
+}
+
+void
 client_resize(struct client_ctx *cc)
 {
 	client_draw_border(cc);
