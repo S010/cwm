@@ -318,6 +318,13 @@ kbfunc_exec(struct client_ctx *cc, union arg *arg)
 			if (j < NPATHS || paths[j] != NULL)
 				continue;
 		}
+		/* check that this path isn't a repetition of an already visited one */
+		for (j = 0; j < i; ++j) {
+			if (!strcmp(paths[i], paths[j]))
+				break;
+		}
+		if (j < i)
+			continue;
 
 		if ((dirp = opendir(paths[i])) == NULL)
 			continue;
