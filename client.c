@@ -62,6 +62,8 @@ client_new(Window win, struct screen_ctx *sc, int mapped)
 	XWindowAttributes	 wattr;
 	XWMHints		*wmhints;
 	int			 state;
+	XineramaScreenInfo	*xine;
+	int			 xmax, ymax;
 
 	if (win == None)
 		return (NULL);
@@ -92,6 +94,17 @@ client_new(Window win, struct screen_ctx *sc, int mapped)
 	cc->geom.width = wattr.width;
 	cc->geom.height = wattr.height;
 	cc->cmap = wattr.colormap;
+
+	xine = screen_find_xinerama(sc, cc->geom.x, cc->geom.y);
+	if (xine != NULL) {
+		xmax = xine->width;
+		ymax = xine->height;
+	} else {
+		xmax = sc->xmax;
+		ymax = sc->ymax;
+	}
+	if (cc->geom.width == xmax && cc->geom.height == ymax)
+		client_maximize(cc);
 
 	if (wattr.map_state != IsViewable) {
 		client_placecalc(cc);
