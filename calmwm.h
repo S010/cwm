@@ -336,6 +336,8 @@ void			 client_unhide(struct client_ctx *);
 void			 client_vertmaximize(struct client_ctx *);
 void			 client_warp(struct client_ctx *);
 int			 client_align_adjust(struct client_ctx *, int, int *);
+void			 client_assure_within_screen(struct client_ctx *,
+					struct screen_ctx *);
 
 void			 group_alltoggle(struct screen_ctx *);
 void			 group_autogroup(struct client_ctx *);
@@ -347,6 +349,10 @@ void			 group_make_autogroup(struct conf *, char *, int);
 void			 group_menu(XButtonEvent *);
 void			 group_movetogroup(struct client_ctx *, int);
 void			 group_only(struct screen_ctx *, int);
+void			 client_assure_within_screen(struct client_ctx *,
+					struct screen_ctx *);
+void			 client_assure_within_screen(struct client_ctx *,
+					struct screen_ctx *);
 void			 group_sticky(struct client_ctx *);
 void			 group_sticky_toggle_enter(struct client_ctx *);
 void			 group_sticky_toggle_exit(struct client_ctx *);

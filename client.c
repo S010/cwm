@@ -105,6 +105,8 @@ client_new(Window win, struct screen_ctx *sc, int mapped)
 	}
 	if (cc->geom.width == xmax && cc->geom.height == ymax)
 		client_maximize(cc);
+	else
+		client_assure_within_screen(cc, sc);
 
 	if (wattr.map_state != IsViewable) {
 		client_placecalc(cc);
@@ -1203,4 +1205,39 @@ client_client_align_adjust(struct client_ctx *to, struct client_ctx *cc,
 	}
 
 	return 0;
+}
+
+void
+client_assure_within_screen(struct client_ctx *cc, struct screen_ctx *sc)
+{
+	int	 top, left, right, bottom;
+	int	 do_move = 0;
+
+	top = cc->geom.y;
+	left = cc->geom.x;
+	right = cc->geom.x + cc->geom.width;
+	bottom = cc->geom.y + cc->geom.height;
+
+	if (bottom < 0) {
+		do_move = 1;
+		cc->geom.y = 0;
+	} else if (top >= sc->ymax) {
+		do_move = 1;
+		cc->geom.y = sc->ymax - cc->geom.height - cc->bwidth * 2;
+		if (cc->geom.y < 0)
+			cc->geom.y = 0;
+	}
+
+	if (left < 0) {
+		do_move = 1;
+		cc->geom.x = 0;
+	} else if (right >= sc->xmax) {
+		do_move = 1;
+		cc->geom.x = sc->xmax - cc->geom.width - cc->bwidth * 2;
+		if (cc->geom.x < 0)
+			cc->geom.x = 0;
+	}
+
+	if (do_move)
+		client_move(cc);
 }

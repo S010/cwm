@@ -367,15 +367,22 @@ xev_handle_randr(XEvent *ee)
 {
 	XRRScreenChangeNotifyEvent	*rev = (XRRScreenChangeNotifyEvent *)ee;
 	struct screen_ctx		*sc;
+	struct client_ctx		*cc;
 	int				 i;
 
 	i = XRRRootToScreen(X_Dpy, rev->root);
 	TAILQ_FOREACH(sc, &Screenq, entry) {
-		if (sc->which == (u_int)i) {
-			XRRUpdateConfiguration(ee);
-			screen_update_geometry(sc, rev->width, rev->height);
-			screen_init_xinerama(sc);
+		if (sc->which != (u_int)i)
+			continue;
+		XRRUpdateConfiguration(ee);
+		screen_update_geometry(sc, rev->width, rev->height);
+		screen_init_xinerama(sc);
+		TAILQ_FOREACH(cc, &Clientq, entry) {
+			if (cc->sc != sc)
+				continue;
+			client_assure_within_screen(cc, sc);
 		}
+		break;
 	}
 }
 
